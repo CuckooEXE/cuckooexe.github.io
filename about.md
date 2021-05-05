@@ -12,5 +12,3 @@ Proud creator of [IsDrexelUClosed](https://isdrexeluclosed.com).
 ### Technical Experience
 
 Some of my work in the past includes writing an enterprise mail filter which was responsible for scanning all inbound emails for malware; kernel security modules; middleware software for security automation; documenting threat actor TTTPs (Tools, Tactics, Techniques, and Procedures); hunting debriefs for senior executive leadership; exploit development and vulnerability research; developing novel hunt methods; developing malware to bypass EDR/AV; research Windows kernel structures for functionality; and much more.
-
-My resume can be found here: [Resume]({{ site.baseurl }}/docs/AxelPersinger_Resume.pdf)
