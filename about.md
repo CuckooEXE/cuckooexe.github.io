@@ -6,7 +6,7 @@ permalink: /about/
 
 I like working with computers, intelligence, and data. I especially like working with low-level computer security involving kernel and OS exploits. In the past, I have been called a security engineer, security analyst, software engineer, reverse-engineer, endpoint security consultant, and threat hunter. Now I'm a reverse-engineer (again!).
 
-Proud creator of [https://isdrexeluclosed.com](https://isdrexeluclosed.com)
+Proud creator of [IsDrexelUClosed](https://isdrexeluclosed.com).
 
 
 ### Technical Experience

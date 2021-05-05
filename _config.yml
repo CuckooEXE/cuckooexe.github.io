@@ -1,4 +1,4 @@
-title: Your awesome title
+title: Axel Persinger's Blog
 author:
   name: Axel Persinger
   email: me@axelp.io
@@ -17,7 +17,7 @@ minima:
   # generate social links in footer
   social_links:
     twitter: CuckooEXE
-    github:  jekyll
+    github:  CuckooEXE
     # devto: CuckooEXE
     # dribbble: jekyll
     # facebook: jekyll
@@ -58,3 +58,5 @@ theme: minima
 plugins:
  - jekyll-feed
  - jekyll-seo-tag
+
+google_analytics: UA-102998417-1
