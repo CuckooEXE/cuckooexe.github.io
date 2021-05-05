@@ -2,6 +2,9 @@
 layout: post
 title: Nerd Night Presentation (Spring 2019)
 excerpt_separator: <!--more-->
+categories: reverse-engineering
+author:
+- Axel Persinger
 ---
 
 Presentation I gave at Drexel's Nerd Night titled "Practical Applications of Reverse Engineering using NSA's GHIDRA".
