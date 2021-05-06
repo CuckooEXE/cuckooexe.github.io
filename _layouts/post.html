@@ -37,7 +37,8 @@ layout: default
 
   <div class="post-content e-content" itemprop="articleBody">
       <br />
-    {{ content }}
+    {% comment %}{{ content }} {% comment %}
+    {% include anchor_headings.html html=content anchorBody="#" %}
   </div>
 
   {%- if site.disqus.shortname -%}
