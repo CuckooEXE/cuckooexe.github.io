@@ -1065,7 +1065,7 @@ I never received a response from the vendor. I have also reached out to Microsof
 
 ## Future Work
 
-I think there are still some vulnerabilities that could be found in this software system. If you're interested in working together, let me know and I'd love to look at it again!
+I think there are still some vulnerabilities that could be found in this software system. If you're interested in working together, let me know and I'd love to look at it again! There's also a lot of room to add additional functionality to the `mousetrap.py` script; you could do things like mess with the cursor, add random keystrokes every once in a while, etc.
 
 ## Special Thanks
 
