@@ -10,7 +10,7 @@ author:
 - Axel Persinger
 ---
 
-I discovered six 0days that allow a remote attacker to get full RCE on a box with no user interaction. [MouseTrap](https://github.com/CuckooEXE/MouseTrap/) is a suite of vulernabilities and accompanying exploits that targets the RemoteMouse application and service. As of release date 05/06/2021, the vulnerabilities have not been patched.
+I discovered six 0days that allow a remote attacker to get full RCE on a box with no user interaction. [MouseTrap](https://github.com/CuckooEXE/MouseTrap/) is a suite of vulnerabilities and accompanying exploits that targets the RemoteMouse application and service. As of release date 05/06/2021, the vulnerabilities have not been patched.
 
 <!--more-->
 <div style="text-align: center">
