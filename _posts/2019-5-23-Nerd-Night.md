@@ -2,7 +2,8 @@
 layout: post
 title: Nerd Night Presentation (Spring 2019)
 excerpt_separator: <!--more-->
-categories: reverse-engineering
+categories:
+- reverse-engineering
 author:
 - Axel Persinger
 ---
