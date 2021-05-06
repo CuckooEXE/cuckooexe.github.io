@@ -10,7 +10,7 @@ author:
 - Axel Persinger
 ---
 
-I discovered six 0days that allow a remote attacker to get full RCE on a box with no user interaction. [MouseTrap](https://github.com/CuckooEXE/MouseTrap/) is a suite of vulnerabilities and accompanying exploits that targets the RemoteMouse application and service. As of release date 05/06/2021, the vulnerabilities have not been patched.
+I discovered six 0days that allow a remote attacker to get full RCE on a box with no user interaction. [MouseTrap](https://github.com/CuckooEXE/MouseTrap/) is a suite of vulnerabilities and accompanying exploits that targets the RemoteMouse application and service. As of the release date 05/06/2021, the vulnerabilities have not been patched. 
 
 <!--more-->
 <div style="text-align: center">
@@ -28,6 +28,8 @@ It's clear that this application is very vulnerable and puts users at risk with 
 - **[CVE-2021-27573](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27573)**: An issue was discovered in Emote Remote Mouse through 3.015. Remote unauthenticated users can execute arbitrary code via crafted UDP packets with no prior authorization or authentication.
 - **[CVE-2021-27574](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-27574)**: An issue was discovered in Emote Remote Mouse through 3.015. It uses cleartext HTTP to check, and request, updates. Thus, attackers can machine-in-the-middle a victim to download a malicious binary in place of the real update, with no SSL errors or warnings.
 
+
+**Update**: The vendor has released an update, version `4.0.0.0` with new features, but did not patch any of the security vulnerabilities. I have contacted MITRE to update the CVE descriptions to note the new version number.
 
 ## Discovery
 
