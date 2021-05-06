@@ -3,7 +3,7 @@ layout: post
 title: Base64 Encoded Character Distribution
 excerpt_separator: <!--more-->
 categories:
-- detections-engineering
+- Detections Engineering
 author:
 - Axel Persinger
 ---

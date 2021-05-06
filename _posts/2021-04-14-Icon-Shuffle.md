@@ -3,7 +3,7 @@ layout: post
 title: Icon Shuffle
 excerpt_separator: <!--more-->
 categories:
-- capability-development
+- Capability Development
 author:
 - Axel Persinger
 ---

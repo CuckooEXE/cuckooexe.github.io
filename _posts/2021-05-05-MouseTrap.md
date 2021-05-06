@@ -3,9 +3,9 @@ layout: post
 title: Mouse Trap
 excerpt_separator: <!--more-->
 categories:
-- exploit-development
-- vulnerability-research
-- capability-development
+- Exploit Development
+- Vulnerability Research
+- Capability Development
 author:
 - Axel Persinger
 ---

@@ -23,9 +23,9 @@ layout: default
             <span class="p-author h-card" itemprop="name">{{ author }}</span></span>
             {%- if forloop.last == false %}, {% endif -%}
         {% endfor %}
-      {%- endif -%}
-      {%- if page.categories -%}
-      • {% for category in page.categories %}
+      {%- endif -%}</p>
+      <p class="post-meta"></p>{%- if page.categories -%}
+      {% for category in page.categories %}
         <span itemprop="author" itemscope itemtype="http://schema.org/Person">
           <span class="p-author h-card" itemprop="name">{{ category }}</span></span>
           {%- if forloop.last == false %} | {% endif -%}
