@@ -10,9 +10,9 @@ author:
 I discovered six 0days that allow a remote attacker to get full RCE on a box with no user interaction. [MouseTrap](https://github.com/CuckooEXE/MouseTrap/) is a suite of vulernabilities and accompanying exploits that targets the RemoteMouse application and service. As of release date 05/06/2021, the vulnerabilities have not been patched.
 
 <!--more-->
-
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/1ceS8T2Xack" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+<div style="text-align: center">
+    <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/1ceS8T2Xack" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 
 ## Vulnerabilities
 
