@@ -2,7 +2,7 @@
 layout: post
 title: Icon Shuffle
 excerpt_separator: <!--more-->
-categories: detections-engineering
+categories: capability-development
 author:
 - Axel Persinger
 ---

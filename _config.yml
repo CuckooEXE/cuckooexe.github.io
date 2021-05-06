@@ -4,7 +4,7 @@ author:
   email: me@axelp.io
 description: > # this means to ignore newlines until "show_excerpts:"
   Technical blog discussing reverse engineering, detections engineering, 
-  exploit development, and other cybersecurity topics.
+  exploit development, capability development, and other cybersecurity topics.
 
 show_excerpts: true # set to true to show excerpts on the homepage
 
