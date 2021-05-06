@@ -37,8 +37,8 @@ layout: default
 
   <div class="post-content e-content" itemprop="articleBody">
       <br />
-    {% comment %}{{ content }} {% endcomment %}
-    {% include toc.html html=content %}
+    {% comment %}{{ content }}{% endcomment %}
+    {% comment %}{% include toc.html html=content %}{% endcomment %}
     {% include anchor_headings.html html=content anchorBody="#" %}
   </div>
 
