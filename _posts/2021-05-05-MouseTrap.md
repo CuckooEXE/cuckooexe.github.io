@@ -89,7 +89,7 @@ I threw the executable into Ghidra and saw the telltale sign that it was a .NET 
 My go-to .NET reversing tool is, and always will be, dnSpy, so I booted it up and started poking around. I landed in a class that seemed to tokenize a string around some substrings that I saw in the original message, namely "[ras]". There is a function inside of `internal class w`, with the signature `public static void a(byte[] A_0, int A_1)`. You can see the function, and my version written in Python (for ease of following) below:
 
 
-```C# 
+```cs 
 public static void a(byte[] A_0, int A_1)
 {
 	string text = Encoding.ASCII.GetString(A_0);
@@ -279,7 +279,7 @@ class w():
 
 Okay cool, easy 45 minutes wasted, but let's see how data flows to this function in the first place. I kept poking around in dnSpy until I found this class, `public class Form1 : Form` containing the function `private void b()`. Again, the function and a Python version written by me are below:
 
-```C#
+```cs
 private void b()
 {
     int num = 10;
@@ -542,7 +542,7 @@ Finally after much more searching, I found the logic that handles password-prote
 
 Then it captures the three bytes of the next TCP transmission and checks if they equal `cin`. If they do, it uses the NEXT three bytes as the length to pull the next chunk of data, which is finally the hash that is sent over as authentication. The code snippet in question is below:
 
-```C#
+```cs
 if (@string == "cin")
 {
     byte[] dataFromSocket = Form1.GetDataFromSocket(tcpClient, 3);
@@ -586,7 +586,7 @@ if (@string == "cin")
 
 You can see that if the hashes match, it sets the `flag` variable to true, which all the other functions check for before continuing any business logic **except** where the next command chunk is `cur` or `hb1`. The `cur` logic, below, only modifies the `flag2` variable which is later looked at by the `mos` logic.
 
-```C#
+```cs
 else if (@string == "cur")
 {
     int num10 = 0;
@@ -602,7 +602,7 @@ else if (@string == "cur")
 
 The `hb1` function seems to just send the characters back to the client? Odd, but not sure what it's used for.
 
-```C#
+```cs
 else if (@string == "hb1")
 {
     byte[] bytes3 = Encoding.ASCII.GetBytes("hb1");
@@ -614,7 +614,7 @@ Let's look more closely at the `cin` logic to see if we can bypass the authentic
 
 ![Registry]({{ site.baseurl }}/images/registry.png)
 
-```C#
+```cs
 try
 {
     this.j = Application.UserAppDataRegistry.GetValue("Password").ToString();
@@ -645,7 +645,7 @@ Anyway, back to the `if (@string == "cin")` logic, the software splits a packet 
 
 Let's look at the conditional that actually decides the pass/fail if the password is correct: `if (Form_Options.MD5String(this.ReverseD(this.j)) == array3[0] && this.i)`). So it checks `this.i` to make sure encryption is set in the first place, then it takes the hash of the password stored in the registry, and reverses it. Passes the reversed hash into a custom MD5String function:
 
-```C#
+```cs
 public static string MD5String(string str)
 {
     byte[] array = MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(str));
@@ -845,7 +845,7 @@ To better understand this workflow, let's go ahead and find the logic inside the
 
 Let's look at `clo`'s logic:
 
-```C#
+```cs
 
 if (!(@string == "clo"))
 {
@@ -897,7 +897,7 @@ You can force a process to die without a user every realizing. No mouse movement
 
 Let's start with the `act` subroutine. In the code, this is called via the `q.b(socket)`, which turns into a more complicated function:
 
-```C#
+```cs
 private static void b(Socket A_0)
 {
     byte[] array = new byte[1295];
@@ -969,7 +969,6 @@ import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect(("192.168.86.195", 1979))
-
 
 s.send(b'act')
 
