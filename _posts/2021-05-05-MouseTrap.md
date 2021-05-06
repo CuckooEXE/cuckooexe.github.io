@@ -522,7 +522,7 @@ Let's do some work in CyberChef real quick:
  - [Hash our password (`PAssword`) with that hashing algorithm](https://gchq.github.io/CyberChef/#recipe=MD5()&input=UEFzc3dvcmQ)
 
 
-Okay, so their idea of encrypting the communications _isn't_ actually encrypted a packet, it's prepending the MD5 hash of the password to the beginning of the packet. Let's make sure this works using scapy:
+Okay, so their idea of encrypting the communications _isn't_ actually encrypting a packet, it's prepending the MD5 hash of the password to the beginning of the packet. Let's make sure this works using scapy:
 
 ```python
 >>> time.sleep(5); send(IP(dst="192.168.86.195")/UDP(dport=1978)/Raw(load="b60cf8ba7e5dab4b3b6bed78bde1e470key  7[ras]87"))
