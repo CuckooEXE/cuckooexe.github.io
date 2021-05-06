@@ -711,7 +711,7 @@ While I was looking for the encryption algorithm, I found the autoupdating subro
 
 To test this out, I'll change the `C:\Windows\System32\drivers\etc\hosts` file to point `remotemouse.net` to my Kali VM, then I'll run a Python Flask web server with the following files `/downloads/RemoteMouse.exe` and `/autoupdater/AutoUpdater.NET_AppCast_RM.xml`. Of course, I'll be manually building/creating these files to host my own "malicious" content. The easiest way I can think of to make an executable do something that's noticeable when it executes is a `MessageBox` in Windows. So I created a simple message to pop up and let me know the binary was executed:
 
-```C
+```c
 #include <Windows.h>
 #include <stdio.h>
 
