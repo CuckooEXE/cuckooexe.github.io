@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mouse Trap
-description: Six CVEs including a 0-click RCE on the latest version of RemoteMouse.
+description: Six CVEs including a 0-click RCE on the latest version of RemoteMouse giving you full access to someone's computer at the logged-on user's privilege level.
 image: https://img.youtube.com/vi/1ceS8T2Xack/0.jpg
 excerpt_separator: <!--more-->
 categories:
