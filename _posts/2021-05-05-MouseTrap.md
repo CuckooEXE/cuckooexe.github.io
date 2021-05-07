@@ -33,6 +33,8 @@ It's clear that this application is very vulnerable and puts users at risk with 
 
 **Update**: The vendor has released an update, version `4.0.0.0` with new features, but did not patch any of the security vulnerabilities. I have contacted MITRE to update the CVE descriptions to note the new version number.
 
+**Update 05/07/2021 1712**: All CVE entries public and updated.
+
 ## Discovery
 
 So, like any good story, this one begins with me figuring out how to troll strangers in a video game. My friend and I were discussing ridiculous methods of playing Rainbow Six Siege, such as playing with our G29 Racing Wheel, when I suggested using one of those Android apps that allowed you to control your mouse and keyboard on your computer, using just your phone. I tried it out, promptly died and lost us the game, and started wondering how it actually worked.
