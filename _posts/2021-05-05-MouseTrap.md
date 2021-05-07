@@ -831,8 +831,6 @@ I wanted to see if you could pass through and click "Ok" on a UAC pop-up. This i
 
 ## Icons
 
-TODO: The App can pull the Icons from the taskbar as a quick hotbar for the user. These must be transmitted over the wire, so I'd like to see how that works and download them as part of `mousetrap.py`.
-
 I noticed in the Android App, one of the functionalities shows the icons you have on your taskbar (including the drawer). I decided to do another packet capture while making the request on my phone and saw that the App sends a TCP packet with the data `act` to the server, and the server dumps the file name, location, and PNG logo of the everything on the task bar. 
 
 Very curious to see if this is encrypted/password protected when the password is set. To check, I'll telnet to make sure the password is required (will dump `pwd pwd`), and then send the `act` to port 1979:
