@@ -60,9 +60,6 @@ plugins:
 
 google_analytics: UA-102998417-1
 
-disqus:
-  shortname: axelpersinger
-
 permalink: /:title
 
 
