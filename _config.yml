@@ -6,8 +6,6 @@ description: > # this means to ignore newlines until "show_excerpts:"
   Technical blog discussing reverse engineering, detections engineering, 
   exploit development, capability development, and other cybersecurity topics.
 
-image_dir: {{ site.baseurl }}/images
-
 show_excerpts: true # set to true to show excerpts on the homepage
 
 # Minima date format
