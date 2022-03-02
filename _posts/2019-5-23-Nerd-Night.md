@@ -15,6 +15,6 @@ Had a great time presenting at Drexel University's Nerd Night. Here is the prese
 
 [PDF]({{ site.baseurl }}/docs/nerd-night-presentation.pdf)
 
-![Nerd Night 1]({{ site.baseurl }}/images/Nerd%20Night%201.jpeg)
-![Nerd Night 2]({{ site.baseurl }}/images/Nerd%20Night%202.jpeg)
-![Nerd Night 3]({{ site.baseurl }}/images/Nerd%20Night%203.jpeg)
+![Nerd Night 1]({{ site.baseurl }}/images/Nerd-Night/Nerd%20Night%201.jpeg)
+![Nerd Night 2]({{ site.baseurl }}/images/Nerd-Night/Nerd%20Night%202.jpeg)
+![Nerd Night 3]({{ site.baseurl }}/images/Nerd-Night/Nerd%20Night%203.jpeg)

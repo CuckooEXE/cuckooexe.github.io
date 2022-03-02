@@ -41,7 +41,7 @@ So, like any good story, this one begins with me figuring out how to troll stran
 
 I knew it used some sort of automatic host discovery, because once I installed the server on my desktop, it automatically appeared on my phone. So my first thought was some sort of broadcast advertisement of the server. I popped open Wireshark to inspect the traffic originating from my computer, and after filtering out the obnoxious amount of traffic from YouTube and Discord, I found something sending two UDP packets around 20 times per second:
 
-![Wireshark Discovery]({{ site.baseurl }}/images/wireshark_discovery.png)
+![Wireshark Discovery]({{ site.baseurl }}/images/MouseTrap/wireshark_discovery.png)
 
 Cool, so it looks like it blasts a hostname with something before it `BC 15DESKTOP-BIICVE8`. I'm not sure what the `BC 15` portion is, it isn't any sort of IP address or anything either. So it looks like the phone's application has to resolve the hostname in order to start communications with it. 
 
@@ -58,7 +58,7 @@ However, this makes it trivial to find our target set since the server is so kin
 
 Finally, I noticed when I clicked the name of a computer in the app, there was some sort of handshake that occured over TCP port 1978.
 
-![TCP Handshake]({{ site.baseurl }}/images/tcp_handshake.png)
+![TCP Handshake]({{ site.baseurl }}/images/MouseTrap/tcp_handshake.png)
 
 Not very interesting, except it looks like it broadcasts the OS in the data, and a few bytes that say "nop", which I find a little odd. However, for hacking, this seems unimportant.
 
@@ -66,7 +66,7 @@ Not very interesting, except it looks like it broadcasts the OS in the data, and
 
 I popped open Wireshark to see traffic coming across the (proverbial) wire, and discovered UDP packets being sent to my computer from my phone. To make a more controlled test, I simply typed 'a' on my phone and saw this packet appear:
 
-!['a' character packet]({{ site.baseurl }}/images/wireshark_character.png)
+!['a' character packet]({{ site.baseurl }}/images/MouseTrap/wireshark_character.png)
 
 Interesting, looks like a string is sent in plaintext: `key 7[ras]84`. Well at first I checked if 84 was the hex/dec for 'a', but unfortuantely it wasn't...
 
@@ -94,7 +94,7 @@ The RemoteMouse server gets installed to `C:\Program Files (x86)\Remote Mouse` b
 
 I threw the executable into Ghidra and saw the telltale sign that it was a .NET executable: the entrypoint redirected to `_CorExeMain`.
 
-![Ghidra Entrypoint Decompilation]({{ site.baseurl }}/images/ghidra_entry.png)
+![Ghidra Entrypoint Decompilation]({{ site.baseurl }}/images/MouseTrap/ghidra_entry.png)
 
 My go-to .NET reversing tool is, and always will be, dnSpy, so I booted it up and started poking around. I landed in a class that seemed to tokenize a string around some substrings that I saw in the original message, namely "[ras]". There is a function inside of `internal class w`, with the signature `public static void a(byte[] A_0, int A_1)`. You can see the function, and my version written in Python (for ease of following) below:
 
@@ -520,7 +520,7 @@ Now if we try sending a keystroke from the phone we get this:
 
 Wait a minute... Is that an MD5 Hash in front of the plain-text single-key packet?
 
-![That's Suspicious](https://media.tenor.com/images/6f934479914fbd708238bab284eeff0a/tenor.gif)
+![That's Suspicious](https://media.tenor.com/images/MouseTrap/6f934479914fbd708238bab284eeff0a/tenor.gif)
 
 Let's do some work in CyberChef real quick:
 
@@ -622,7 +622,7 @@ else if (@string == "hb1")
 
 Let's look more closely at the `cin` logic to see if we can bypass the authentication, the `this.i` signifies that encryption is in fact, set. How is `this.i` determined? It's in the `Form1.g(object, EventArgs)` function, which is the entry-point for the software. If the password exists in the UserAppDataRegistry, then the server is considering itself as encrypted. The UserAppDataRegistry just points to the `CurrentUser\Software\CompanyName\ProductName\ProductVersion` according to the [documentation](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.application.userappdataregistry?view=net-5.0). And sure enough, if we check, we see our password (MD5 hash of `123456`).
 
-![Registry]({{ site.baseurl }}/images/registry.png)
+![Registry]({{ site.baseurl }}/images/MouseTrap/registry.png)
 
 ```cs
 try
@@ -773,11 +773,11 @@ if __name__ == "__main__":
 
 With all of this up and running, let's boot up the server again. Nothing popped up, but if you do a manual update check, the new version comes up. It also contains our scary changelog and custom version number. You can still skip, cancel the update, and unfortunately, when I actually click "Update", it fails to connect to the server. 
 
-![XML V1]({{ site.baseurl }}/images/xmlv1.png)
+![XML V1]({{ site.baseurl }}/images/MouseTrap/xmlv1.png)
 
 Let's up the version number to something higher and see if we can get the server to pop up an update dialog on start. I tried increasing the major number to `3.2.0.0` and we get a pop up this time on boot. Still the update is skipable...
 
-![XML V2]({{ site.baseurl }}/images/xmlv2.png)
+![XML V2]({{ site.baseurl }}/images/MouseTrap/xmlv2.png)
 
 
 Let's investigate the binary to see what's going on. Turns out the AutoUpdate functionality uses [AutoUpdater.Net](https://github.com/ravibpatel/AutoUpdater.NET) to parse the XML file that is retrieved. So the function call to `AutoUpdater.Start` is actually calling this library, and this library takes it from here. One line in the README stood out to me, it's describing the required/optional fields in the XML file describing the update when I saw this:
@@ -798,7 +798,7 @@ So if we set the mandatory field in the XML file we can force a user to update? 
 
 And rebooted the server to see this:
 
-![XML V3]({{ site.baseurl }}/images/xmlv3.png)
+![XML V3]({{ site.baseurl }}/images/MouseTrap/xmlv3.png)
 
 So we can make it pop up with a mandatory update! Let's see if we can succesfully serve the binary, as well. I think the AutoUpdate.Net library might be a little smarter than the RemoteMouse binary, and force an HTTPS connection, so let's spin up an Nginx reverse proxy and redirect 443 traffic to 80. I know this won't successfully MITM someone, because of SSL errors (unless the developers explicitly ignore them...), but let's see what happens. Here are two snippets from a [Gist](https://gist.github.com/jessedearing/2351836) to do this quickly:
 
@@ -823,7 +823,7 @@ server {
 }
 ```
 
-![MessageBox Success]({{ site.baseurl }}/images/custombinary.png)
+![MessageBox Success]({{ site.baseurl }}/images/MouseTrap/custombinary.png)
 
 Let's reboot the server again, and... **SUCCESS**! The auto-updater worked and executed a binary that we served! Though, that's a little odd, the nginx server logs don't show any connections. To double-check, I turned off the nginx reverse-proxy, and ran it again, and it worked. This means we can succesfully MITM a target and serve them a malicious, custom exectuable with **no** HTTPS/TLS concerns.
 
@@ -839,7 +839,7 @@ I noticed in the Android App, one of the functionalities shows the icons you hav
 
 Very curious to see if this is encrypted/password protected when the password is set. To check, I'll telnet to make sure the password is required (will dump `pwd pwd`), and then send the `act` to port 1979:
 
-![Logos No Password]({{ site.baseurl }}/images/image-nopass.png)
+![Logos No Password]({{ site.baseurl }}/images/MouseTrap/image-nopass.png)
 
 This shows you can view anyone's taskbar with no password whatsoever, even if the password is set on the server. This makes me think that only services provided by the server on port 1978 is password "protected", if a password is set.
 
