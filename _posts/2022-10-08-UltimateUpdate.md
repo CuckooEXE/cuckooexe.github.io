@@ -10,11 +10,14 @@ author:
 - Axel Persinger
 ---
 
-![UltimateUpdate]({{ site.baseurl }}/images/UltimateUpdate/UltimateUpdate.png)
 
 I was on a site browsing for wedding venues in Virginia (👀), and after scrolling down a page listing venues in Vienna, my entire screen changed to one of the typical "Your {Internet Browser} is out of date. Click here to update!". Curiosity got the best of me, I clicked the link, and this created a mini-investigation of some interesting malware!
 
 <!--more-->
+
+![UltimateUpdate]({{ site.baseurl }}/images/UltimateUpdate/UltimateUpdate.png)
+> *Not the actual ad I was served*
+
 I thought it was pretty odd that I was served this ad in the first place, since I have uBlock Origin, which is pretty good at preventing these sorts of ads. Because I have no respect for my computer, I decided to YOLO it and click the "Download Update!" button. It downloaded a ZIP file named `Firefοx.106.63418.18456.9503fcf0.zip` from a JavaScript Blob (URL: `blob:null/06285e4d-82c0-4901-b6c3-f7d713a410a3`). This means I won't be able to re-download it, and unfortunately I navigated away from the page so I don't have the original.
 
 I repackaged the zip file into a 7Zip in this [repo](https://github.com/CuckooEXE/UltimateUpdate) with the password `infected`.
