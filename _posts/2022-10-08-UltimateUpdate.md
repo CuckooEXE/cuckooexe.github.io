@@ -11,9 +11,9 @@ author:
 
 
 
-I was on a site browsing for wedding venues in Virginia (👀), and while on a site, my entire screen changed to one of the typical "Your {Internet Browser} is out of date. Click here to update!". When I clicked the link to see what would happen, this led me down a rabbit hole!
+I was on a site browsing for wedding venues in Virginia (👀), and after scrolling down a page listing venues in Vienna, my entire screen changed to one of the typical "Your {Internet Browser} is out of date. Click here to update!". Curiosity got the best of me, I clicked the link, and this created a mini-investigation of some interesting malware!
 <!--more-->
-I thought it was pretty weird Thta I was served this ad in the first place, since I have uBlock Origin, and it's pretty good at preventing these sorts of ads. Because I have no respect for my computer, I decided to YOLO it and click the "Download Update!" button. It downloaded a ZIP file named `Firefοx.106.63418.18456.9503fcf0.zip` from a JavaScript Blob (URL: `blob:null/06285e4d-82c0-4901-b6c3-f7d713a410a3`). This means I won't be able to re-download it, and unfortunately I navigated away from the page so I don't have the original.
+I thought it was pretty odd that I was served this ad in the first place, since I have uBlock Origin, which is pretty good at preventing these sorts of ads. Because I have no respect for my computer, I decided to YOLO it and click the "Download Update!" button. It downloaded a ZIP file named `Firefοx.106.63418.18456.9503fcf0.zip` from a JavaScript Blob (URL: `blob:null/06285e4d-82c0-4901-b6c3-f7d713a410a3`). This means I won't be able to re-download it, and unfortunately I navigated away from the page so I don't have the original.
 
 I repackaged the zip file into a 7Zip in this repo with the password `infected`.
 
@@ -102,7 +102,7 @@ var script_elem_ = document.getElementsByTagName(script_str)[0];
 script_elem_.parentNode.insertBefore(script_elem, script_elem_);
 ```
 
-I tried visiting the site, and nothing appeard. Their webserver must be doing some sort of filtering based on referrer, or something. I can get it to trigger and add the `<script>` element, but the webserver isn't returning anything new for me. Maybe it's based on IP, and it refuses to return content on IPs that has visited it... I'll download a VPN to see if I get a "new IP" and try from there. Unfortunately, I got the `<script>` tag added again, but still no response. 
+I tried visiting the site, and nothing appeard. I am able to consistently trigger the `<script>` element, but the webserver isn't returning anything new for me. Their webserver must be doing some sort of filtering based on referrer, or potentially using the Base64-encoded parameter as a nonce. To rule out any IP-based filtering, I downloaded a VPN to see if I get a "new IP" and try from there. Unfortunately, I got the `<script>` tag added again, but still no response. 
 
 I ran their site through [VirusTotal](https://www.virustotal.com/gui/url/4023d8e5092e1f3ecb943e1d8d8e6a7c907bfb51243d43d874a6f48decd35aeb/details), which returned with two hits (Avira and Kaspersky both claiming the site hosts Malware); all other scanners labelled this clean. Unsurprising, this domain was registered with privacy settings through FastDomain. It was registered on 02/01/2022, last updated on 06/14/2022.
 
@@ -116,12 +116,12 @@ The entire situation is pretty weird; typically, if this were just adware, they 
  - The root domain hosts a legitimate looking "Coming Soon" WordPress site
  - Someone infected a website, `weddingrule[.]org` to serve an infected JavaScript blob
  - This JavaScript blob is obfuscated
- - The JavaScript blob only redirects to the malicious domain if it hasn't done that in the past (it will add a `__uta` key in your local storage)
- - Even after manually removing traces of the `__uta` key, and trying to re-trigger the malicious site's content, the malicious site only returns an empty page.
+ - The JavaScript blob only redirects to the malicious domain if it hasn't done that in the past (it will add a `__utma` key in your local storage)
+ - Even after manually removing traces of the `__utma` key, and trying to re-trigger the malicious site's content, the malicious site only returns an empty page.
 
  This is all pretty odd...
 
- Another route I want to take is see how the blob originally gets created and called from the acutal site. We'll go back into Chrome Dev Tools to check this out. I searched a unique string (`shntitiphss`) that was inside of the blob to see where it appeared on the page. The blob is wrapped in a `<script>` tag:
+ Another route I want to take is see how the blob originally gets created and called from the acutal site. We'll go back into Chrome Dev Tools to check this out. I searched for a unique string (`shntitiphss`) that was inside of the blob to see where it appeared on the wedding webpage. The blob is wrapped in a `<script>` tag:
 
  ```html
 <script id="6049c9e9056fa8c121a67cbec179fdac-1" type="nitropack/inlinescript" class="nitropack-inline-script">
@@ -149,11 +149,11 @@ eval(response);
 
 I modified the `eval` to be a `WScript.Echo` command and executed it, because... YOLO, right?
 
-Unfortunately, because I lack foresight, I accidentally clicked the "OK." on the prompt that popped up and only saw the next stage payload appear for a minute. Then it was gone into the ether. I tried executing the script again, but much like the original ad I was served, it isn't re-downloading the payload. This is super disappointing because I saw that the code was executing some WMIC commands and doing a host survey.
+Unfortunately, because I lack foresight, I accidentally clicked the "OK." on the prompt that popped up and only saw the next stage payload appear for a minute. Then it was gone into the ether. I tried executing the script again, but much like the original ad I was served, it isn't re-downloading the payload. This is super disappointing because I saw that the code was executing some WMIC commands and performing a host survey to send back to the C2.
 
 The next day, I re-flashed my laptop with a fresh installation of Windows, went to a coffee shop and tried again. I was able to get the malicious blob served to me from the first site, however, it didn't transition into the malicious "Updated needed!" page. I went ahead and tried executing the last payload I had (the `ActiveXObject` downloader), but I was getting a weird error (`.\bad.js(3, 1) msxml3.dll: The system cannot locate the resource specified.`). After some googling to figure this out, I realized it's telling me that it can't resolve the DNS for the malicious domain. At first I thought it might be the coffee shop WiFi doing some filtering, but after using an online NS lookup tool, I realized that the DNS records were deleted some time last night. This must have been in response to the next stage having been downloaded. It's unclear whether deleting the DNS records was automatic or manual.
 
 ## Conclusion
 This was a pretty weird series of events. I'm not sure what type of adversary this was. It was too advanced to be "spray-and-pray" adware, as they took down infrastructure and masqueraded with reasonable domains. I doubt it was anything targetted, because I'm a nobody, they didn't use any 0days, and dropping `.js` hoping that I would execute it is a big leap. So, I'm thinking it's somewhere in the middle, an adversary that doesn't target, but invests in reasonable tooling and obfuscation.
 
-I did get to take away a decent lessons learned: always enable logging and take things more slowly during an investigation. When I used to work in cybersecurity analytics/threat hunt/incident response, I had a good set up with a lot of logging running. That most likely would have saved my bacon by capturing the output of the malicious JavaScript. However, since this was just a hobby "investigation", I didn't take it as seriously, and missed out on what could have been a much deeper rabbit hole!
+I did get to take away a decent lessons learned: always enable logging and take things more slowly during an investigation, even when the investigation is just for fun on my own time. When I used to work in cybersecurity analytics/threat hunt/incident response, I had a good set up with a lot of logging running. This most likely would have saved my bacon by capturing the output of the malicious JavaScript. However, since this was just a hobby "investigation", I didn't take it as seriously, and missed out on what could have been a much deeper rabbit hole!
