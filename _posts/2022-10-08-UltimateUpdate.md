@@ -2,7 +2,7 @@
 layout: post
 title: UltimateUpdate
 description: What do wedding venues and malware have in common? I got to spend my weekend investigating them. A short post about interesting malware, and lessons learned.
-image: {{ site.baseurl }}/images/UltimateUpdate/UltimateUpdate.png
+image: https://axelp.io/images/UltimateUpdate/UltimateUpdate.png
 excerpt_separator: <!--more-->
 categories:
 - Reverse Engineering
