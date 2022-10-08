@@ -1,15 +1,16 @@
 ---
 layout: post
 title: UltimateUpdate
-description: Small investigation into weird malware I was served.
+description: What do wedding venues and malware have in common? I got to spend my weekend investigating them. A short post about interesting malware, and lessons learned.
+image: {{ site.baseurl }}/images/UltimateUpdate/UltimateUpdate.png
 excerpt_separator: <!--more-->
 categories:
-- Vulnerability Research
+- Reverse Engineering
 author:
 - Axel Persinger
 ---
 
-
+![UltimateUpdate]({{ site.baseurl }}/images/UltimateUpdate/UltimateUpdate.png)
 
 I was on a site browsing for wedding venues in Virginia (👀), and after scrolling down a page listing venues in Vienna, my entire screen changed to one of the typical "Your {Internet Browser} is out of date. Click here to update!". Curiosity got the best of me, I clicked the link, and this created a mini-investigation of some interesting malware!
 
