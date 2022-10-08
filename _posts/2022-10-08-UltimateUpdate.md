@@ -12,10 +12,11 @@ author:
 
 
 I was on a site browsing for wedding venues in Virginia (👀), and after scrolling down a page listing venues in Vienna, my entire screen changed to one of the typical "Your {Internet Browser} is out of date. Click here to update!". Curiosity got the best of me, I clicked the link, and this created a mini-investigation of some interesting malware!
+
 <!--more-->
 I thought it was pretty odd that I was served this ad in the first place, since I have uBlock Origin, which is pretty good at preventing these sorts of ads. Because I have no respect for my computer, I decided to YOLO it and click the "Download Update!" button. It downloaded a ZIP file named `Firefοx.106.63418.18456.9503fcf0.zip` from a JavaScript Blob (URL: `blob:null/06285e4d-82c0-4901-b6c3-f7d713a410a3`). This means I won't be able to re-download it, and unfortunately I navigated away from the page so I don't have the original.
 
-I repackaged the zip file into a 7Zip in this repo with the password `infected`.
+I repackaged the zip file into a 7Zip in this [repo](https://github.com/CuckooEXE/UltimateUpdate) with the password `infected`.
 
 ## Hunt for the Original
 First thing I want to do for this "investigation" is to see what the original payload is. That way I can see the logic in targetting, or if there are any other payloads. I went back through my browsing history to see if I could eventually find it, and on the page `hxxps[://]www[.]weddingrule[.]com/wedding-venues/virginia/north-va/` I see that it loads a Blob:
