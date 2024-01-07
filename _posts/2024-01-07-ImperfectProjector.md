@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ImperfectProjector
-description: An perfect project to hack an imperfect projector.
+description: A perfect project to hack an imperfect projector.
 image: https://axelp.io/images/ImperfectProjector/ImperfectProjector.png
 excerpt_separator: <!--more-->
 categories:
