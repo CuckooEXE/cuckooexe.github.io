@@ -1,7 +1,7 @@
 ---
 layout: post
 title: ImperfectProjector
-description: A perfect project to hack an imperfect projector.
+description: A perfect project to hack an imperfect projector, including a hardware teardown, potential CLI injection, and some lessons learned.
 image: https://axelp.io/images/ImperfectProjector/ImperfectProjector.png
 excerpt_separator: <!--more-->
 categories:
