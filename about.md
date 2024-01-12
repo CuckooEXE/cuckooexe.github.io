@@ -8,4 +8,4 @@ I love working with computers, and I love breaking computers even more. I work a
 
 Looking for a skilled hacker to verify your product's security? Reach out to me via [PtrSecVerify](https://ptrsecverify.com).
 
-Looking for a job? Checkout our job postings at [nullptrsec](https://nullptrsec.io/careers), where I work with a really cool team of really smart people doing really important work.
+Looking for a job? Check out our job postings at [nullptrsec](https://nullptrsec.io/careers), where I work with a really cool team of really smart people doing really important work.
