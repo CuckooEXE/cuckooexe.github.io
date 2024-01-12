@@ -1,14 +1,12 @@
 ---
 layout: default
 ---
-<article class="post">
+<article class="container mx-5 w-75">
 
-  <header class="post-header">
-    <h1 class="post-title">{{ page.title | escape }}</h1>
-  </header>
+	<span class="display-3">{{ page.title | escape }}</span>
 
-  <div class="post-content">
-    {{ content }}
-  </div>
+	<div class="post-content">
+		{{ content }}
+	</div>
 
 </article>

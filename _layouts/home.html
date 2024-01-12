@@ -1,61 +1,46 @@
 ---
 layout: default
 ---
+<div class="pt-3 text-center rounded-3">
+    <h1 class="text-body-emphasis pb-1">👋 Hey, I'm <span class="glitch"><span aria-hidden="true">Axel</span>Axel<span aria-hidden="true">Axel</span></span><span class="rainbow">.</span></h1>
+    <p class="col-lg-8 mx-auto fs-5 text-muted pb-3">
+        I'm an Offensive Security Researcher, and I like to write about: my findings, journey learning new technologies, and random musings on tech.
+    </p>
+	<span class="h6 px-3 position-relative"><a class="stretched-link" href="https://github.com/CuckooEXE"><i class="bi bi-github"></i></a> &nbsp; GitHub</span><div class="vr"></div>
+	<span class="h6 px-3 position-relative"><a class="stretched-link" href="https://www.linkedin.com/in/axelpersinger"><i class="bi bi-linkedin"></i></a> &nbsp; LinkedIn</span><div class="vr"></div>
+	<span class="h6 px-3 position-relative"><a class="stretched-link" href="https://ptrsecverify.com"><i class="bi bi-motherboard"></i></a> &nbsp; PtrSecVerify</span><div class="vr"></div>
+	<span class="h6 px-3 position-relative"><a class="stretched-link" href="https://nullptrsec.io"><i class="bi bi-briefcase"></i></a> &nbsp; nullptrsec</span>
+	<hr class="text-center mx-auto w-50 my-5">
+</div>
 
-<div class="home">
-  {%- if page.title -%}
-    <h1 class="page-heading">{{ page.title }}</h1>
-  {%- endif -%}
-
-  {{ content }}
-
-
-  {% if site.paginate %}
+{% if site.paginate %}
     {% assign posts = paginator.posts %}
-  {% else %}
+{% else %}
     {% assign posts = site.posts %}
-  {% endif %}
+{% endif %}
 
-
-  {%- if posts.size > 0 -%}
-    {%- if page.list_title -%}
-      <h2 class="post-list-heading">{{ page.list_title }}</h2>
-    {%- endif -%}
-    <ul class="post-list">
-      {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-      {%- for post in posts -%}
-      <li>
-        <span class="post-meta">{{ post.date | date: date_format }}</span>
-        <h3>
-          <a class="post-link" href="{{ post.url | relative_url }}">
-            {{ post.title | escape }}
-          </a>
-        </h3>
-        {%- if site.show_excerpts -%}
-          {{ post.excerpt }}
-        {%- endif -%}
-      </li>
-      {%- endfor -%}
-    </ul>
-
-    {% if site.paginate %}
-      <div class="pager">
-        <ul class="pagination">
-        {%- if paginator.previous_page %}
-          <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-          <li><div class="current-page">{{ paginator.page }}</div></li>
-        {%- if paginator.next_page %}
-          <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-        {%- else %}
-          <li><div class="pager-edge">•</div></li>
-        {%- endif %}
-        </ul>
-      </div>
-    {%- endif %}
-
-  {%- endif -%}
-
+<div class="container">
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-9 mx-5">
+			{%- if posts.size > 0 -%}	  
+				<ul class="post-list list-group list-group-flush borderless">
+				{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+				{%- for post in posts -%}
+					<li class="rounded border-0 list-group-item list-group-item-action d-flex position-relative py-3">
+						<div>
+							<p class="small text-muted my-0">{{ post.date | date: date_format }}</p>
+							<h4 class="mt-1">{{ post.title | escape }}</h4>
+							<p class="text-muted mt-0">{{ post.excerpt }}</p>
+							<a href="{{ post.url | relative_url }}" class="stretched-link"></a>
+						</div>
+					</li>
+					{% if forloop.last == false %}
+						<hr class="mb-4">
+					{% endif %}
+				{%- endfor -%} <!-- post in posts -->
+				</ul>
+			{%- endif -%} <!-- posts.size > 0 -->
+		</div>
+	  </div>	  
 </div>
