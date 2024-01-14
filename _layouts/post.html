@@ -3,9 +3,9 @@ layout: default
 ---
 <article class="post h-entry container" style="width: 85%;" itemscope itemtype="http://schema.org/BlogPosting">
 
-  <header class="post-header">
+  <header class="post-header pb-4">
     <span class="post-title p-name display-4" itemprop="name headline">{{ page.title | escape }}</span>
-    <div class="text-muted">
+    <div class="pt-1 text-muted">
         <p class="post-meta" style="float: left">
         {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
         <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
