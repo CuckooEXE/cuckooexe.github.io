@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Heated Blanket: Reversing an internet-connected... blanket?!
+title: Heated Blanket - Reversing an internet-connected... blanket?!
 description: Hacking my blanket!
 image: https://axelp.io/images/HeatedBlanket/HeatedBlanket.png
 excerpt_separator: <!--more-->
