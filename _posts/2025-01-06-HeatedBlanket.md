@@ -16,7 +16,8 @@ Years ago, I bought a very cozy [heated blanket](https://www.amazon.com/gp/produ
 
 <!--more-->
 
-![HeatedBlanket]({{ site.baseurl }}/images/HeatedBlanket/HeatedBlanket.png){:.centered}
+{:.centered }
+![HeatedBlanket]({{ site.baseurl }}/images/HeatedBlanket/HeatedBlanket.png)
 
 
 ## Initial Poking Around
@@ -43,11 +44,13 @@ I'll start by figuring out which shared-object file in the APK exposes the funct
 
 ## JNI Reverse Engineering
 
-I opened up the file in Binary Ninja, and searched for `Java_` in the symbols window, but didn't find what I expected. I know that JNI functions that auto-magically resolve should start with `Java_` followed by name of the Java package (delimeted by underscores rather than dots), but only two functions appear for this: `sendBroadcast` and `stopBroadcast`.
-![JNI Functions]({{ site.baseurl }}/images/HeatedBlanket//JNI%20Functions.png){:.centered}
+I opened up the file in Binary Ninja, and searched for `Java_` in the symbols window, but didn't find what I expected. I know that JNI functions that auto-magically resolve should start with `Java_` followed by name of the Java package (delimeted by underscores rather than dots), but only two functions appear for this (first image, below): `sendBroadcast` and `stopBroadcast`. I expected to see the function names that I `grep`'ed for but they only exist in the shared-object as a string (second image, below).
 
-I expected to see the function names that I `grep`'ed for but they only exist in the shared-object as a string:
-![JNI Expected Functions]({{ site.baseurl }}/images/HeatedBlanket//Expected%20Function.png){:.centered}
+{:.centered }
+![JNI Functions]({{ site.baseurl }}/images/HeatedBlanket//JNI%20Functions.png)
+
+{:.centered }
+![JNI Expected Functions]({{ site.baseurl }}/images/HeatedBlanket//Expected%20Function.png)
 
 I am vaguley familiar with the substrings in around the function name, it's the JNI Name Mangling (similar to C++'s mangling to encode return/parameter types). After ~~pouring through JNI internals for hours~~ finding a good [StackOverflow post](https://stackoverflow.com/a/55836885), I ~~realized~~ learned that I *also* have to track down the functions that are parsed in the `JNI_OnLoad` function. The StackOverflow post points to a [Java documentation page](https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/functions.html#wp5833) that tells me I should interpret the memory in the previous image as an array of structures that gets passed to `RegisterNatives`, like so:
 
