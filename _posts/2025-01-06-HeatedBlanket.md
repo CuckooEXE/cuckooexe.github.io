@@ -170,4 +170,32 @@ And shocker - it wasn't anything close to that easy. The function is massive, it
 
 I started by looking at all of the shared-object files with "`tuya`" in the name, as I figure based on the Java classes this is either the company or project name. This yielded some interesting results, and unfortunately, a lot of not-so-interesting results. They seem to statically compile OpenSSL into all of their binaries, which just means there is a lot of repetition. Reading through some of the more interesting function names, I slowly came to the (unfortunate) realization that this app probably did nothing special. It looks like [tuya](https://www.tuya.com) is an IoT services company that does all of the "cloud-connected" pieces of having an IoT product. So the app talks to the Tuya SDK that comes bundled, which brokers with the Tuya servers to talk to the blanket.
 
-My next steps are: scan the device and see if anything interesting comes up, and use a proxy to see what types of commands my phone sends and the device receives.
+My next steps are: scan the device and see if anything interesting comes up, and use a proxy to see what types of commands my phone sends and the devic
+## Scanning the Device
+
+What happened when I tried to nmap the blanket is kind of hilarious. I set off to do my typical nmap scan, but nmap complained "Note: Host seems down. If it is really up, but blocking our ping probes, try -Pn." That's odd, I know I have *definitely* pinged this device before... I tried to manually ping it again, and now *my* pings are getting blocked! I confirmed on the router that the device was still connected, and to the IP I was using, and the app didn't return any errors like it couldn't reach the device. I checked the small display/control panel on the blanket itself and it displayed a small "🛜" symbol to show that it was connected, and that the blanket heater was currently off. I told myself "No way...", turned on the blanket heater to the lowest setting, returned to my computer and tried to ping it. And, of course, the pings work now. So starting 2025 off with a strong contender for "Most Cursed Sentence": *My blanket will only respond to ICMP Ping requests when its heater is on. Or, as I told my friend, "Give it a minute, the netstack just has to .... warm up (•_•) / ( •_•)>⌐■-■ / (⌐■_■)"
+
+Anyway! I scanned the device and it came back with one open port:
+
+```bash
+╭─axelpersinger@Axels-MacBook-Air ~
+╰─$ sudo nmap -p- -sV -sS -O --stats-every 5s 10.0.0.216 | tee ~/Desktop/nmap.txt
+PORT     STATE SERVICE VERSION
+6668/tcp open  tuya    Tuya IoT protocol
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port6668-TCP:V=7.95%I=7%D=1/7%Time=677D406E%P=arm-apple-darwin24.1.0%r(
+SF:GetRequest,B6,"\0\0U\xaa\0\0\0\0\0\0\0\x08\0\0\0K\0\0\0\x003\.3\0\0\0\0
+SF:\0\0j\x16\0\0\0\x01{\xd39\x98\x05\x8b\xbe\xc7#W\]\x1f\x9a\xc9\+Gu\x94\n
+SF:\xc7\xed\xf7\x9f\xe9\xf5\0\xad\xddk\x1ew\xf6\xca\x1b\xa7\x15\xb6&1\xba\
+SF:xed\x1e=\xff;w\x7f\xa3<\xf4\xd2<\0\0\xaaU\0\0U\xaa\0\0\0\0\0\0\0\x08\0\
+SF:0\0K\0\0\0\x003\.3\0\0\0\0\0\0j\x17\0\0\0\x01\x88RPGgG\x06\xad\xb3\x9b\
+SF:x92\xff\x91P2Nu\x94\n\xc7\xed\xf7\x9f\xe9\xf5\0\xad\xddk\x1ew\xf6AZ\x8e
+SF:x\xd5\xd8}\xf2\xf1\x8d\x1bt\xfc\x92\xcb\x18\*u\x8b\.\0\0\xaaU");
+MAC Address: 50:8A:06:64:9F:E5 (Tuya Smart)
+Device type: specialized
+Running: lwIP
+OS CPE: cpe:/a:lwip_project:lwip
+OS details: lwIP 1.4.1 - 2.0.3
+Network Distance: 1 hop
+```
+
