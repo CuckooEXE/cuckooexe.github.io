@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Getting Hot: Reversing an internet-connected... blanket?!"
+title: "Getting Hot: Reverse-Engineering an internet-connected... blanket?!"
 description: Hacking my blanket!
 image: https://axelp.io/images/HeatedBlanket/HeatedBlanket.png
 excerpt_separator: <!--more-->
@@ -162,7 +162,12 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved)
 
 Pretty nice! I should've done that from the start, but what can I say? I told you at the beginning I'm lazy 😉. Now, I was able to go back to the memory region that contained the `JNINativeMethod` array, and define it as such - it's *much* prettier.
 
-### Understanding the Device Logic
+## Understanding the App Logic
 
 Now that we have the core functionality of the device in front of us (well, I assume to be honest, this might be a red herring), let's actually go about and change the temperature of this blanket! The first function that jumped out at me was `sendCMD`. I'd love for this just to be some socket listening for JSON or something like that.
 
+And shocker - it wasn't anything close to that easy. The function is massive, it has a lot of C++ objects, etc. Since this is supposed to be a quick, two-day project (thank you OPM for the two back-to-back snowdays 🙏), I'm going to try a few different approaches before committing to this static RE process. First, I think I'll take a look at other shared-objects in the folder and see if any functions defined in them are promising.  Executing `find . -name '*.so' -exec sh -c "echo '>>>>>>> '{}; readelf --wide --demangle --symbols {} | grep -v UND" \; > ~/Desktop/HeatedBlanket/symbols.txt` outputs all of the symbols (demangled!) for all of the files in the directory (at that point I was in `resources/lib/arm64-v8a` from the JADX output).
+
+I started by looking at all of the shared-object files with "`tuya`" in the name, as I figure based on the Java classes this is either the company or project name. This yielded some interesting results, and unfortunately, a lot of not-so-interesting results. They seem to statically compile OpenSSL into all of their binaries, which just means there is a lot of repetition. Reading through some of the more interesting function names, I slowly came to the (unfortunate) realization that this app probably did nothing special. It looks like [tuya](https://www.tuya.com) is an IoT services company that does all of the "cloud-connected" pieces of having an IoT product. So the app talks to the Tuya SDK that comes bundled, which brokers with the Tuya servers to talk to the blanket.
+
+My next steps are: scan the device and see if anything interesting comes up, and use a proxy to see what types of commands my phone sends and the device receives.
